@@ -8,17 +8,36 @@ DatasyncDialog::DatasyncDialog(Control *mControl, QWidget *parent) :
 	ui(new Ui::DatasyncDialog)
 {
 	ui->setupUi(this);
-	DialogMaster::masterDialog(this);
+	DialogMaster::masterDialog(this, true);
 
+	auto seperator = new QAction(this);
+	seperator->setSeparator(true);
+	ui->exportButton->addActions({
+									 ui->action_Network_exchange,
+									 seperator,
+									 ui->action_Export_to_file,
+									 ui->action_Import_from_file
+								 });
+
+	connect(control, &DatasyncControl::syncEnabledChanged,
+			ui->syncCheckBox, &QCheckBox::setChecked);
+	connect(ui->syncCheckBox, &QCheckBox::clicked,
+			control, &DatasyncControl::setSyncEnabled);
 	connect(control, &DatasyncControl::statusStringChanged,
 			this, &DatasyncDialog::updateStatus);
 	connect(control, &DatasyncControl::showProgressChanged,
 			this, &DatasyncDialog::updateProgressVisible);
 	connect(control, &DatasyncControl::syncProgressChanged,
 			this, &DatasyncDialog::updateProgress);
+	ui->syncCheckBox->setChecked(control->syncEnabled());
 	updateStatus();
 	updateProgress();
 	updateProgressVisible();
+
+	connect(ui->syncButton, &QPushButton::clicked,
+			control, &DatasyncControl::sync);
+	connect(ui->resyncButton, &QPushButton::clicked,
+			control, &DatasyncControl::resync);
 }
 
 DatasyncDialog::~DatasyncDialog()
