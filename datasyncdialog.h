@@ -16,6 +16,8 @@ public:
 	Q_INVOKABLE DatasyncDialog(Control *mControl, QWidget *parent = nullptr);
 	~DatasyncDialog();
 
+	static void registerWidgets();
+
 private slots:
 	void updateStatus();
 	void updateProgressVisible();

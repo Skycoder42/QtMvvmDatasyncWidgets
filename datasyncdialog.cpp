@@ -1,7 +1,9 @@
 #include "datasyncdialog.h"
 #include "ui_datasyncdialog.h"
+#include <widgetpresenter.h>
 #include <dialogmaster.h>
 #include <QStandardPaths>
+#include "userdataexchangedialog.h"
 
 DatasyncDialog::DatasyncDialog(Control *mControl, QWidget *parent) :
 	QDialog(parent),
@@ -30,6 +32,8 @@ DatasyncDialog::DatasyncDialog(Control *mControl, QWidget *parent) :
 			this, &DatasyncDialog::updateProgressVisible);
 	connect(control, &DatasyncControl::syncProgressChanged,
 			this, &DatasyncDialog::updateProgress);
+	connect(ui->action_Network_exchange, &QAction::triggered,
+			control, &DatasyncControl::initExchange);
 	ui->syncCheckBox->setChecked(control->syncEnabled());
 	updateStatus();
 	updateProgress();
@@ -44,6 +48,12 @@ DatasyncDialog::DatasyncDialog(Control *mControl, QWidget *parent) :
 DatasyncDialog::~DatasyncDialog()
 {
 	delete ui;
+}
+
+void DatasyncDialog::registerWidgets()
+{
+	WidgetPresenter::registerWidget<DatasyncDialog>();
+	WidgetPresenter::registerWidget<UserDataExchangeDialog>();
 }
 
 void DatasyncDialog::updateStatus()
