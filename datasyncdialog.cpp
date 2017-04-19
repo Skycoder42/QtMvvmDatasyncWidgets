@@ -1,6 +1,7 @@
 #include "datasyncdialog.h"
 #include "ui_datasyncdialog.h"
 #include <dialogmaster.h>
+#include <QStandardPaths>
 
 DatasyncDialog::DatasyncDialog(Control *mControl, QWidget *parent) :
 	QDialog(parent),
@@ -58,4 +59,24 @@ void DatasyncDialog::updateProgressVisible()
 void DatasyncDialog::updateProgress()
 {
 	ui->progressBar->setValue(control->syncProgress() * 1000);
+}
+
+void DatasyncDialog::on_action_Export_to_file_triggered()
+{
+	auto path = DialogMaster::getSaveFileName(this,
+											  tr("Export user data"),
+											  QStandardPaths::writableLocation(QStandardPaths::HomeLocation),
+											  tr("Datasync Export File (*.dse);;All Files (*)"));
+	if(!path.isNull())
+		control->exportUserData(path);
+}
+
+void DatasyncDialog::on_action_Import_from_file_triggered()
+{
+	auto path = DialogMaster::getOpenFileName(this,
+											  tr("Import user data"),
+											  QStandardPaths::writableLocation(QStandardPaths::HomeLocation),
+											  tr("Datasync Export File (*.dse);;All Files (*)"));
+	if(!path.isNull())
+		control->importUserData(path);
 }

@@ -21,6 +21,10 @@ private slots:
 	void updateProgressVisible();
 	void updateProgress();
 
+	void on_action_Export_to_file_triggered();
+
+	void on_action_Import_from_file_triggered();
+
 private:
 	DatasyncControl *control;
 	Ui::DatasyncDialog *ui;
