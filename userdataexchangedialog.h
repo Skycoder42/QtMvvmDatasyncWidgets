@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include <userdataexchangecontrol.h>
+#include <qobjectproxymodel.h>
 
 namespace Ui {
 class UserDataExchangeDialog;
@@ -16,9 +17,15 @@ public:
 	Q_INVOKABLE UserDataExchangeDialog(Control *mControl, QWidget *parent = nullptr);
 	~UserDataExchangeDialog();
 
+private slots:
+	void on_applyButton_clicked();
+
+	void on_treeView_activated(const QModelIndex &index);
+
 private:
 	UserDataExchangeControl *control;
 	Ui::UserDataExchangeDialog *ui;
+	QObjectProxyModel *proxyModel;
 };
 
 #endif // USERDATAEXCHANGEDIALOG_H
