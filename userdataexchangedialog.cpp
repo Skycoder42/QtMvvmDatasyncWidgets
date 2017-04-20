@@ -1,5 +1,6 @@
 #include "userdataexchangedialog.h"
 #include "ui_userdataexchangedialog.h"
+#include <QSortFilterProxyModel>
 #include <dialogmaster.h>
 
 UserDataExchangeDialog::UserDataExchangeDialog(Control *mControl, QWidget *parent) :
@@ -25,7 +26,12 @@ UserDataExchangeDialog::UserDataExchangeDialog(Control *mControl, QWidget *paren
 	proxyModel->setSourceModel(control->model());
 	proxyModel->addMapping(0, Qt::DisplayRole, "name");
 	proxyModel->addMapping(1, Qt::DisplayRole, "address");
-	ui->treeView->setModel(proxyModel);
+
+	//TODO fix proxy & remove
+	auto sort = new QSortFilterProxyModel(this);
+	sort->setSourceModel(proxyModel);
+
+	ui->treeView->setModel(sort);
 }
 
 UserDataExchangeDialog::~UserDataExchangeDialog()

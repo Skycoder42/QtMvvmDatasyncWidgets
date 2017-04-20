@@ -78,9 +78,6 @@
      <property name="editTriggers">
       <set>QAbstractItemView::NoEditTriggers</set>
      </property>
-     <property name="tabKeyNavigation">
-      <bool>true</bool>
-     </property>
      <property name="alternatingRowColors">
       <bool>true</bool>
      </property>
@@ -90,7 +87,7 @@
      <property name="itemsExpandable">
       <bool>false</bool>
      </property>
-     <property name="animated">
+     <property name="sortingEnabled">
       <bool>true</bool>
      </property>
      <property name="expandsOnDoubleClick">
@@ -110,6 +107,12 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>portSpinBox</tabstop>
+  <tabstop>applyButton</tabstop>
+  <tabstop>deviceNameLineEdit</tabstop>
+  <tabstop>treeView</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>
