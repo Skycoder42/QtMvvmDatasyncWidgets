@@ -73,20 +73,20 @@ void DatasyncDialog::updateProgress()
 
 void DatasyncDialog::on_action_Export_to_file_triggered()
 {
-	auto path = DialogMaster::getSaveFileName(this,
-											  tr("Export user data"),
-											  QStandardPaths::writableLocation(QStandardPaths::HomeLocation),
-											  tr("Datasync Export File (*.dse);;All Files (*)"));
-	if(!path.isNull())
+	auto path = DialogMaster::getSaveFileUrl(this,
+											 tr("Export user data"),
+											 QUrl::fromLocalFile(QStandardPaths::writableLocation(QStandardPaths::HomeLocation)),
+											 tr("Datasync Export File (*.dse);;All Files (*)"));
+	if(path.isValid())
 		control->exportUserData(path);
 }
 
 void DatasyncDialog::on_action_Import_from_file_triggered()
 {
-	auto path = DialogMaster::getOpenFileName(this,
-											  tr("Import user data"),
-											  QStandardPaths::writableLocation(QStandardPaths::HomeLocation),
-											  tr("Datasync Export File (*.dse);;All Files (*)"));
-	if(!path.isNull())
+	auto path = DialogMaster::getOpenFileUrl(this,
+											 tr("Import user data"),
+											 QUrl::fromLocalFile(QStandardPaths::writableLocation(QStandardPaths::HomeLocation)),
+											 tr("Datasync Export File (*.dse);;All Files (*)"));
+	if(path.isValid())
 		control->importUserData(path);
 }
