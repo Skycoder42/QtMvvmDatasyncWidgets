@@ -3,6 +3,7 @@
 #include <widgetpresenter.h>
 #include <dialogmaster.h>
 #include <QStandardPaths>
+#include <coremessage.h>
 #include "userdataexchangedialog.h"
 
 DatasyncDialog::DatasyncDialog(Control *mControl, QWidget *parent) :
@@ -73,20 +74,34 @@ void DatasyncDialog::updateProgress()
 
 void DatasyncDialog::on_action_Export_to_file_triggered()
 {
-	auto path = DialogMaster::getSaveFileUrl(this,
-											 tr("Export user data"),
-											 QUrl::fromLocalFile(QStandardPaths::writableLocation(QStandardPaths::HomeLocation)),
-											 tr("Datasync Export File (*.dse);;All Files (*)"));
-	if(path.isValid())
-		control->exportUserData(path);
+	auto path = DialogMaster::getSaveFileName(this,
+											  tr("Export user data"),
+											  QStandardPaths::writableLocation(QStandardPaths::HomeLocation),
+											  tr("Datasync Export File (*.dse);;All Files (*)"));
+	if(!path.isNull()) {
+		auto exportFile = new QFile(path);
+		if(exportFile->open(QIODevice::WriteOnly))
+			control->exportUserData(exportFile);
+		else {
+			CoreMessage::critical(tr("User data export"), tr("Failed to create file with error: %1").arg(exportFile->errorString()));
+			delete exportFile;
+		}
+	}
 }
 
 void DatasyncDialog::on_action_Import_from_file_triggered()
 {
-	auto path = DialogMaster::getOpenFileUrl(this,
-											 tr("Import user data"),
-											 QUrl::fromLocalFile(QStandardPaths::writableLocation(QStandardPaths::HomeLocation)),
-											 tr("Datasync Export File (*.dse);;All Files (*)"));
-	if(path.isValid())
-		control->importUserData(path);
+	auto path = DialogMaster::getOpenFileName(this,
+											  tr("Import user data"),
+											  QStandardPaths::writableLocation(QStandardPaths::HomeLocation),
+											  tr("Datasync Export File (*.dse);;All Files (*)"));
+	if(!path.isNull()) {
+		auto importFile = new QFile(path);
+		if(importFile->open(QIODevice::ReadOnly))
+			control->importUserData(importFile);
+		else {
+			CoreMessage::critical(tr("User data import"), tr("Failed to read file with error: %1").arg(importFile->errorString()));
+			delete importFile;
+		}
+	}
 }
