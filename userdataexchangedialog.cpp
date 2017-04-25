@@ -49,6 +49,6 @@ void UserDataExchangeDialog::on_treeView_activated(const QModelIndex &index)
 	if(index.isValid()) {
 		auto rIndex = proxyModel->mapToSource(index);
 		if(rIndex.isValid())
-			control->exportTo(index);
+			control->exportTo(index.row());
 	}
 }
