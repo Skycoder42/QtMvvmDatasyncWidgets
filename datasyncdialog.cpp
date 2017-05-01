@@ -33,12 +33,17 @@ DatasyncDialog::DatasyncDialog(Control *mControl, QWidget *parent) :
 			this, &DatasyncDialog::updateProgressVisible);
 	connect(control, &DatasyncControl::syncProgressChanged,
 			this, &DatasyncDialog::updateProgress);
+	connect(control, &DatasyncControl::authErrorChanged,
+			ui->errorLabel, [this](){
+		ui->errorLabel->setText(control->authError());
+	});
 	connect(ui->action_Network_exchange, &QAction::triggered,
 			control, &DatasyncControl::initExchange);
 	ui->syncCheckBox->setChecked(control->syncEnabled());
 	updateStatus();
 	updateProgress();
 	updateProgressVisible();
+	ui->errorLabel->setText(control->authError());
 
 	connect(ui->syncButton, &QPushButton::clicked,
 			control, &DatasyncControl::sync);
