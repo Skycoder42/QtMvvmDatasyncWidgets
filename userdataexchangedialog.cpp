@@ -27,7 +27,6 @@ UserDataExchangeDialog::UserDataExchangeDialog(Control *mControl, QWidget *paren
 	proxyModel->addMapping(0, Qt::DisplayRole, "name");
 	proxyModel->addMapping(1, Qt::DisplayRole, "address");
 
-	//TODO fix proxy & remove
 	auto sort = new QSortFilterProxyModel(this);
 	sort->setSourceModel(proxyModel);
 
