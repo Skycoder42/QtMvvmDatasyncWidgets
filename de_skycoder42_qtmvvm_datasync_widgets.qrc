@@ -1,3 +1,10 @@
 <RCC>
-    <qresource prefix="/de/skycoder42/qtmvvm/datasync/widgets"/>
+    <qresource prefix="/de/skycoder42/qtmvvm/datasync/widgets/icons">
+        <file alias="sync.ico">icons/arrow_refresh.ico</file>
+        <file alias="export.ico">icons/card_export.ico</file>
+        <file alias="import.ico">icons/card_import.ico</file>
+        <file alias="userdata.ico">icons/user.ico</file>
+        <file alias="exchange.ico">icons/world_go.ico</file>
+        <file alias="check.ico">icons/tick.ico</file>
+    </qresource>
 </RCC>

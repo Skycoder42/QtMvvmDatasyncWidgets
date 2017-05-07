@@ -64,8 +64,8 @@
        <item>
         <widget class="QToolButton" name="applyButton">
          <property name="icon">
-          <iconset theme="gtk-apply">
-           <normaloff>.</normaloff>.</iconset>
+          <iconset theme="gtk-apply" resource="de_skycoder42_qtmvvm_datasync_widgets.qrc">
+           <normaloff>:/de/skycoder42/qtmvvm/datasync/widgets/icons/check.ico</normaloff>:/de/skycoder42/qtmvvm/datasync/widgets/icons/check.ico</iconset>
          </property>
         </widget>
        </item>
@@ -103,6 +103,8 @@
   <tabstop>deviceNameLineEdit</tabstop>
   <tabstop>treeView</tabstop>
  </tabstops>
- <resources/>
+ <resources>
+  <include location="de_skycoder42_qtmvvm_datasync_widgets.qrc"/>
+ </resources>
  <connections/>
 </ui>
