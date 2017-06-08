@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>420</width>
+    <width>500</width>
     <height>152</height>
    </rect>
   </property>
@@ -154,7 +154,20 @@
     </widget>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout">
+    <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,0,0,0">
+     <item>
+      <widget class="QToolButton" name="syncButton">
+       <property name="popupMode">
+        <enum>QToolButton::MenuButtonPopup</enum>
+       </property>
+       <property name="toolButtonStyle">
+        <enum>Qt::ToolButtonTextBesideIcon</enum>
+       </property>
+       <property name="autoRaise">
+        <bool>false</bool>
+       </property>
+      </widget>
+     </item>
      <item>
       <widget class="QToolButton" name="exportButton">
        <property name="text">
@@ -186,27 +199,9 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="resyncButton">
-       <property name="text">
-        <string>&amp;Resync</string>
-       </property>
-       <property name="icon">
-        <iconset theme="view-refresh" resource="de_skycoder42_qtmvvm_datasync_widgets.qrc">
-         <normaloff>:/de/skycoder42/qtmvvm/datasync/widgets/icons/sync.ico</normaloff>:/de/skycoder42/qtmvvm/datasync/widgets/icons/sync.ico</iconset>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="syncButton">
-       <property name="text">
-        <string>&amp;Sync</string>
-       </property>
-       <property name="icon">
-        <iconset theme="view-refresh" resource="de_skycoder42_qtmvvm_datasync_widgets.qrc">
-         <normaloff>:/de/skycoder42/qtmvvm/datasync/widgets/icons/sync.ico</normaloff>:/de/skycoder42/qtmvvm/datasync/widgets/icons/sync.ico</iconset>
-       </property>
-       <property name="default">
-        <bool>true</bool>
+      <widget class="QDialogButtonBox" name="buttonBox">
+       <property name="standardButtons">
+        <set>QDialogButtonBox::Close</set>
        </property>
       </widget>
      </item>
@@ -255,10 +250,37 @@
      <normaloff>:/de/skycoder42/qtmvvm/datasync/widgets/icons/idreset.ico</normaloff>:/de/skycoder42/qtmvvm/datasync/widgets/icons/idreset.ico</iconset>
    </property>
    <property name="text">
-    <string>&amp;Reset Identity</string>
+    <string>Rese&amp;t Identity</string>
    </property>
    <property name="toolTip">
     <string>Reset Identity</string>
+   </property>
+  </action>
+  <action name="action_Sync">
+   <property name="icon">
+    <iconset theme="view-refresh" resource="de_skycoder42_qtmvvm_datasync_widgets.qrc">
+     <normaloff>:/de/skycoder42/qtmvvm/datasync/widgets/icons/sync.ico</normaloff>:/de/skycoder42/qtmvvm/datasync/widgets/icons/sync.ico</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Synchronize</string>
+   </property>
+   <property name="toolTip">
+    <string>Synchronize</string>
+   </property>
+   <property name="shortcut">
+    <string>F5</string>
+   </property>
+  </action>
+  <action name="action_Resync">
+   <property name="icon">
+    <iconset theme="view-refresh" resource="de_skycoder42_qtmvvm_datasync_widgets.qrc">
+     <normaloff>:/de/skycoder42/qtmvvm/datasync/widgets/icons/sync.ico</normaloff>:/de/skycoder42/qtmvvm/datasync/widgets/icons/sync.ico</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Resynchronize</string>
+   </property>
+   <property name="toolTip">
+    <string>Resynchronize</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+R</string>
@@ -268,5 +290,22 @@
  <resources>
   <include location="de_skycoder42_qtmvvm_datasync_widgets.qrc"/>
  </resources>
- <connections/>
+ <connections>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>clicked(QAbstractButton*)</signal>
+   <receiver>DatasyncDialog</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>380</x>
+     <y>131</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>257</x>
+     <y>119</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

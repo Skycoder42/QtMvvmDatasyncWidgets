@@ -95,6 +95,13 @@
      </property>
     </widget>
    </item>
+   <item>
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Close</set>
+     </property>
+    </widget>
+   </item>
   </layout>
  </widget>
  <tabstops>
@@ -106,5 +113,22 @@
  <resources>
   <include location="de_skycoder42_qtmvvm_datasync_widgets.qrc"/>
  </resources>
- <connections/>
+ <connections>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>clicked(QAbstractButton*)</signal>
+   <receiver>UserDataExchangeDialog</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>137</x>
+     <y>317</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>58</x>
+     <y>295</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

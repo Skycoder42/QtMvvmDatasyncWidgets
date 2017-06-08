@@ -4,6 +4,7 @@
 #include <dialogmaster.h>
 #include <QStandardPaths>
 #include <coremessage.h>
+#include <QMenu>
 #include "userdataexchangedialog.h"
 
 DatasyncDialog::DatasyncDialog(Control *mControl, QWidget *parent) :
@@ -14,22 +15,26 @@ DatasyncDialog::DatasyncDialog(Control *mControl, QWidget *parent) :
 	ui->setupUi(this);
 	DialogMaster::masterDialog(this, true);
 
-	auto seperator = new QAction(this);
-	seperator->setSeparator(true);
-	ui->exportButton->addActions({
-									 ui->action_Network_exchange,
-									 seperator,
-									 ui->action_Export_to_file,
-									 ui->action_Import_from_file
-								 });
+	ui->syncButton->addActions({
+								   ui->action_Sync,
+								   ui->action_Resync
+							   });
+	ui->syncButton->setDefaultAction(ui->action_Sync);
+	connect(ui->action_Sync, &QAction::triggered,
+			control, &DatasyncControl::sync);
+	connect(ui->action_Resync, &QAction::triggered,
+			control, &DatasyncControl::resync);
+
+	auto exchangeMenu = new QMenu(ui->exportButton);
+	exchangeMenu->addAction(ui->action_Network_exchange);
+	exchangeMenu->addSeparator();
+	exchangeMenu->addAction(ui->action_Export_to_file);
+	exchangeMenu->addAction(ui->action_Import_from_file);
 	if(control->canReset()) {
-		auto seperator2 = new QAction(this);
-		seperator2->setSeparator(true);
-		ui->exportButton->addActions({
-										 seperator2,
-										 ui->action_Reset_Identity
-									 });
+		exchangeMenu->addSeparator();
+		exchangeMenu->addAction(ui->action_Reset_Identity);
 	}
+	ui->exportButton->setMenu(exchangeMenu);
 
 	connect(control, &DatasyncControl::syncEnabledChanged,
 			ui->syncCheckBox, &QCheckBox::setChecked);
@@ -54,11 +59,6 @@ DatasyncDialog::DatasyncDialog(Control *mControl, QWidget *parent) :
 	updateProgress();
 	updateProgressVisible();
 	ui->errorLabel->setText(control->authError());
-
-	connect(ui->syncButton, &QPushButton::clicked,
-			control, &DatasyncControl::sync);
-	connect(ui->resyncButton, &QPushButton::clicked,
-			control, &DatasyncControl::resync);
 }
 
 DatasyncDialog::~DatasyncDialog()
