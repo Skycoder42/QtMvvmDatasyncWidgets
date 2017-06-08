@@ -22,6 +22,14 @@ DatasyncDialog::DatasyncDialog(Control *mControl, QWidget *parent) :
 									 ui->action_Export_to_file,
 									 ui->action_Import_from_file
 								 });
+	if(control->canReset()) {
+		auto seperator2 = new QAction(this);
+		seperator2->setSeparator(true);
+		ui->exportButton->addActions({
+										 seperator2,
+										 ui->action_Reset_Identity
+									 });
+	}
 
 	connect(control, &DatasyncControl::syncEnabledChanged,
 			ui->syncCheckBox, &QCheckBox::setChecked);
@@ -39,6 +47,8 @@ DatasyncDialog::DatasyncDialog(Control *mControl, QWidget *parent) :
 	});
 	connect(ui->action_Network_exchange, &QAction::triggered,
 			control, &DatasyncControl::initExchange);
+	connect(ui->action_Reset_Identity, &QAction::triggered,
+			control, &DatasyncControl::resetIdentity);
 	ui->syncCheckBox->setChecked(control->syncEnabled());
 	updateStatus();
 	updateProgress();

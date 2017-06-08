@@ -249,6 +249,21 @@
     <string>Ctrl+N</string>
    </property>
   </action>
+  <action name="action_Reset_Identity">
+   <property name="icon">
+    <iconset theme="user-group-delete" resource="de_skycoder42_qtmvvm_datasync_widgets.qrc">
+     <normaloff>:/de/skycoder42/qtmvvm/datasync/widgets/icons/idreset.ico</normaloff>:/de/skycoder42/qtmvvm/datasync/widgets/icons/idreset.ico</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Reset Identity</string>
+   </property>
+   <property name="toolTip">
+    <string>Reset Identity</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+R</string>
+   </property>
+  </action>
  </widget>
  <resources>
   <include location="de_skycoder42_qtmvvm_datasync_widgets.qrc"/>

@@ -6,5 +6,6 @@
         <file alias="userdata.ico">icons/user.ico</file>
         <file alias="exchange.ico">icons/world_go.ico</file>
         <file alias="check.ico">icons/tick.ico</file>
+        <file alias="idreset.ico">icons/user_delete.ico</file>
     </qresource>
 </RCC>
