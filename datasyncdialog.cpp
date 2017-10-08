@@ -6,6 +6,7 @@
 #include <coremessage.h>
 #include <QMenu>
 #include "userdataexchangedialog.h"
+#include "changeremotewidget.h"
 
 DatasyncDialog::DatasyncDialog(Control *mControl, QWidget *parent) :
 	QDialog(parent),
@@ -70,6 +71,7 @@ void DatasyncDialog::registerWidgets()
 {
 	WidgetPresenter::registerWidget<DatasyncDialog>();
 	WidgetPresenter::registerWidget<UserDataExchangeDialog>();
+	WidgetPresenter::inputWidgetFactory()->addSimpleWidget<ChangeRemoteWidget>("qtmvvm_datasync_remotechange");
 }
 
 void DatasyncDialog::updateStatus()
