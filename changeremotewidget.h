@@ -12,7 +12,7 @@ class ChangeRemoteWidget : public QWidget
 {
 	Q_OBJECT
 
-	Q_PROPERTY(QVariantMap data READ data WRITE setData NOTIFY dataChanged USER true)
+	Q_PROPERTY(QVariantMap data READ data WRITE setData USER true)
 
 public:
 	explicit ChangeRemoteWidget(QWidget *parent = nullptr);
@@ -23,12 +23,9 @@ public:
 public slots:
 	void setData(QVariantMap data);
 
-signals:
-	void dataChanged(QVariantMap data);
-
 private:
 	Ui::ChangeRemoteWidget *ui;
-	QVariantMap _data;
+	mutable QVariantMap _data;
 };
 
 #endif // CHANGEREMOTEWIDGET_H

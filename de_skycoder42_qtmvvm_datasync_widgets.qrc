@@ -7,5 +7,6 @@
         <file alias="exchange.ico">icons/world_go.ico</file>
         <file alias="check.ico">icons/tick.ico</file>
         <file alias="idreset.ico">icons/user_delete.ico</file>
+        <file alias="changeRemote.ico">icons/server_edit.ico</file>
     </qresource>
 </RCC>

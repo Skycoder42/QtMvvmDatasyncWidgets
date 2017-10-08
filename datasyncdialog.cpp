@@ -33,6 +33,7 @@ DatasyncDialog::DatasyncDialog(Control *mControl, QWidget *parent) :
 	exchangeMenu->addAction(ui->action_Import_from_file);
 	if(control->canReset()) {
 		exchangeMenu->addSeparator();
+		exchangeMenu->addAction(ui->action_Change_Remote_Server);
 		exchangeMenu->addAction(ui->action_Reset_Identity);
 	}
 	ui->exportButton->setMenu(exchangeMenu);
@@ -53,6 +54,8 @@ DatasyncDialog::DatasyncDialog(Control *mControl, QWidget *parent) :
 	});
 	connect(ui->action_Network_exchange, &QAction::triggered,
 			control, &DatasyncControl::initExchange);
+	connect(ui->action_Change_Remote_Server, &QAction::triggered,
+			control, &DatasyncControl::changeRemote);
 	connect(ui->action_Reset_Identity, &QAction::triggered,
 			control, &DatasyncControl::resetIdentity);
 	ui->syncCheckBox->setChecked(control->syncEnabled());

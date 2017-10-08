@@ -286,6 +286,15 @@
     <string>Ctrl+R</string>
    </property>
   </action>
+  <action name="action_Change_Remote_Server">
+   <property name="icon">
+    <iconset theme="network-server" resource="de_skycoder42_qtmvvm_datasync_widgets.qrc">
+     <normaloff>:/de/skycoder42/qtmvvm/datasync/widgets/icons/changeRemote.ico</normaloff>:/de/skycoder42/qtmvvm/datasync/widgets/icons/changeRemote.ico</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Change Remote Server</string>
+   </property>
+  </action>
  </widget>
  <resources>
   <include location="de_skycoder42_qtmvvm_datasync_widgets.qrc"/>
