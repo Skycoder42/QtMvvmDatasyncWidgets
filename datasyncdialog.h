@@ -22,6 +22,7 @@ private slots:
 	void updateStatus();
 	void updateProgressVisible();
 	void updateProgress();
+	void updateError();
 
 	void on_action_Export_to_file_triggered();
 	void on_action_Import_from_file_triggered();

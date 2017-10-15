@@ -2,6 +2,7 @@
 #include "ui_userdataexchangedialog.h"
 #include <QSortFilterProxyModel>
 #include <dialogmaster.h>
+#include <qtmvvmbinding.h>
 
 UserDataExchangeDialog::UserDataExchangeDialog(Control *mControl, QWidget *parent) :
 	QDialog(parent),
@@ -12,16 +13,13 @@ UserDataExchangeDialog::UserDataExchangeDialog(Control *mControl, QWidget *paren
 	ui->setupUi(this);
 	DialogMaster::masterDialog(this);
 
-	connect(control, &UserDataExchangeControl::portChanged,
-			ui->portSpinBox, &QSpinBox::setValue);
-	connect(control, &UserDataExchangeControl::deviceNameChanged,
-			ui->deviceNameLineEdit, &QLineEdit::setText);
+	QtMvvmBinding::bind(control, "port", ui->portSpinBox, "value", QtMvvmBinding::OneWayFromControl);
+	QtMvvmBinding::bind(control, "deviceName", ui->deviceNameLineEdit, "text", QtMvvmBinding::OneWayFromControl);
+
 	connect(ui->deviceNameLineEdit, &QLineEdit::editingFinished,
 			control, [=](){
 		control->setDeviceName(ui->deviceNameLineEdit->text());
 	});
-	ui->portSpinBox->setValue(control->port());
-	ui->deviceNameLineEdit->setText(control->deviceName());
 
 	proxyModel->setSourceModel(control->model());
 	proxyModel->addMapping(0, Qt::DisplayRole, "name");

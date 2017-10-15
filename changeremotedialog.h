@@ -23,6 +23,7 @@ public slots:
 private slots:
 	void on_buttonBox_clicked(QAbstractButton *button);
 	void on_urlLineEdit_textEdited();
+	void on_urlLineEdit_editingFinished();
 
 private:
 	ChangeRemoteControl *_control;

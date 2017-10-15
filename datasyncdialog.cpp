@@ -4,6 +4,7 @@
 #include <dialogmaster.h>
 #include <QStandardPaths>
 #include <coremessage.h>
+#include <qtmvvmbinding.h>
 #include <QMenu>
 #include "userdataexchangedialog.h"
 #include "changeremotedialog.h"
@@ -21,10 +22,6 @@ DatasyncDialog::DatasyncDialog(Control *mControl, QWidget *parent) :
 								   ui->action_Resync
 							   });
 	ui->syncButton->setDefaultAction(ui->action_Sync);
-	connect(ui->action_Sync, &QAction::triggered,
-			control, &DatasyncControl::sync);
-	connect(ui->action_Resync, &QAction::triggered,
-			control, &DatasyncControl::resync);
 
 	auto exchangeMenu = new QMenu(ui->exportButton);
 	exchangeMenu->addAction(ui->action_Network_exchange);
@@ -38,10 +35,9 @@ DatasyncDialog::DatasyncDialog(Control *mControl, QWidget *parent) :
 	}
 	ui->exportButton->setMenu(exchangeMenu);
 
-	connect(control, &DatasyncControl::syncEnabledChanged,
-			ui->syncCheckBox, &QCheckBox::setChecked);
-	connect(ui->syncCheckBox, &QCheckBox::clicked,
-			control, &DatasyncControl::setSyncEnabled);
+	QtMvvmBinding::bind(control, "syncEnabled",
+						ui->syncCheckBox, "checked");
+
 	connect(control, &DatasyncControl::statusStringChanged,
 			this, &DatasyncDialog::updateStatus);
 	connect(control, &DatasyncControl::showProgressChanged,
@@ -49,20 +45,23 @@ DatasyncDialog::DatasyncDialog(Control *mControl, QWidget *parent) :
 	connect(control, &DatasyncControl::syncProgressChanged,
 			this, &DatasyncDialog::updateProgress);
 	connect(control, &DatasyncControl::authErrorChanged,
-			ui->errorLabel, [this](){
-		ui->errorLabel->setText(control->authError());
-	});
+			this, &DatasyncDialog::updateError);
+
+	connect(ui->action_Sync, &QAction::triggered,
+			control, &DatasyncControl::sync);
+	connect(ui->action_Resync, &QAction::triggered,
+			control, &DatasyncControl::resync);
 	connect(ui->action_Network_exchange, &QAction::triggered,
 			control, &DatasyncControl::initExchange);
 	connect(ui->action_Change_Remote_Server, &QAction::triggered,
 			control, &DatasyncControl::changeRemote);
 	connect(ui->action_Reset_Identity, &QAction::triggered,
 			control, &DatasyncControl::resetIdentity);
-	ui->syncCheckBox->setChecked(control->syncEnabled());
+
 	updateStatus();
 	updateProgress();
 	updateProgressVisible();
-	ui->errorLabel->setText(control->authError());
+	updateError();
 }
 
 DatasyncDialog::~DatasyncDialog()
@@ -90,6 +89,11 @@ void DatasyncDialog::updateProgressVisible()
 void DatasyncDialog::updateProgress()
 {
 	ui->progressBar->setValue(control->syncProgress() * 1000);
+}
+
+void DatasyncDialog::updateError()
+{
+	ui->errorLabel->setText(control->authError());
 }
 
 void DatasyncDialog::on_action_Export_to_file_triggered()
